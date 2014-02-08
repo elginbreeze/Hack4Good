@@ -71,6 +71,7 @@
       </library>
     </orderEntry>
     <orderEntry type="module" module-name="Hack4Good-grailsPlugins" />
+    <orderEntry type="library" name="groovy-2.2.1" level="application" />
   </component>
 </module>
 
