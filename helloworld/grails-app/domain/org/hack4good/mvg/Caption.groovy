@@ -2,11 +2,11 @@ package org.hack4good.mvg
 
 class Caption {
 
-    public int captionId
-    public int videoId
+    int captionId
+    int videoId
     String caption
-    public int startingPoint
-    public int endPoint
+    int startingPoint
+    int endPoint
     int accuracy
 
     static belongsTo = [video : Video]
