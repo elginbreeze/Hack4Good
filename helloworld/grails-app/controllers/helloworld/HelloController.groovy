@@ -8,4 +8,11 @@ class HelloController {
     def hi() {
 
     }
+    def startPoint(){
+
+    }
+    def videoHolder(){
+
+    }
+
 }
