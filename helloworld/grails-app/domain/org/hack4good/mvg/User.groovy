@@ -9,11 +9,13 @@ class User {
     String email
     int rating
 
-
     static constraints = {
         email(blank: false, unique: true)
         username(blank: false)
         firstName(blank: false)
         lastName(blank: false)
+        password(password: true)
     }
+
+    static hasMany = [translations : Translation]
 }
