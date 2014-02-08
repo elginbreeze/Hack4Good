@@ -1,6 +1,7 @@
 package helloworld
 
 import grails.test.mixin.TestFor
+import org.hack4good.mvg.Video
 import spock.lang.Specification
 
 /**

@@ -7,6 +7,9 @@ class VideoController {
     def create() {
         def v = new Video(params)
         v.save()
+    }
+
+    def get() {
         def p = Video.get(1)
         return p
     }

@@ -2,8 +2,6 @@ package org.hack4good.mvg
 
 class Caption {
 
-    int captionId
-    int videoId
     String caption
     int startingPoint
     int endPoint

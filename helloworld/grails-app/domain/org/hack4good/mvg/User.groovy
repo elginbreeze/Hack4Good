@@ -2,7 +2,6 @@ package org.hack4good.mvg
 
 class User {
 
-    int userId
     String username
     String password
     String firstName
