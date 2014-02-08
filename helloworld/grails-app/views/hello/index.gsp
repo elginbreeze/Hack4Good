@@ -7,5 +7,11 @@
 <body>
  index
  index
+
+<form id="searchbox">
+    <input id="search" type="search" placeholder="Type here">
+    <input id="submit" type="submit" value="Search">
+</form>
+
 </body>
 </html>
