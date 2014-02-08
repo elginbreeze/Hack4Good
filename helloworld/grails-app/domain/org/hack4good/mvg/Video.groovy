@@ -1,6 +1,9 @@
 package org.hack4good.mvg
 
 class Video {
+
+    int videoId
+    String name
     String url
     String subject
 
