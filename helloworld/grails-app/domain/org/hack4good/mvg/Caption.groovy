@@ -9,7 +9,7 @@ class Caption {
     int endPoint
     int accuracy
 
-    static belongsTo = [video : Video]
+    static belongsTo = [video : Video, translation : Translation]
 
     static hasMany = [translations: Translation]
 
