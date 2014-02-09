@@ -62,7 +62,14 @@
     <script src="http://code.jquery.com/jquery.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script>
+		
     var microGame = new function() {
+		 this.getUserJson = function() {
+                $.getJSON('./json/user.json', function(user) {  
+					$( "#currentScore" ).text( user.user.rating );
+                    $( "#user-id" ).val( user.user.id );
+                });
+		 };
         this.getNewJson = function() {
                 $.getJSON('./json/video.json', function(data) {        
                 var youtubeLink = data.video.url + "?rel=0&start=" + data.video.startpoint + "&end=" + data.video.endpoint  + "&autoplay=0";
@@ -70,20 +77,15 @@
                 $( "#captionCorrection" ).val( data.video.caption );
                 $( "#captionid" ).val(data.video.captionid);
             });
-        };
-        this.getUserJson = function() {
-                $.getJSON('./json/user.json', function(user) {    
-                    $( "#user-id" ).val( user.user.id );
-                });
-        };
-    }
-
-    
-    $( document ).ready(function() {
+		};
+		   
+	}
+	
+	$( document ).ready(function() {
             microGame.getNewJson();
             microGame.getUserJson();
     });
-    
+
     $( "#captionForm" ).submit(function( event ) {
       event.preventDefault();
       var data = {};
