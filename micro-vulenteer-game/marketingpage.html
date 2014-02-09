@@ -43,7 +43,9 @@
               <div class="form-group">
                 <label for="captionCorrection">Correct the caption:</label>
                <!-- <input type="textarea" class="input-large" id="captionCorrection" placeholder="">-->
-                <textarea form="captionForm" rows="2" cols="200" class="input-large" id="captionCorrection" placeholder=""> </textarea>
+                 <textarea form="captionForm" rows="2" cols="200" class="input-large" id="captionCorrection" placeholder=""> </textarea>
+                <input type="hidden" id="captionid" name="captionid" />
+                <input type="hidden" id="user-id" name="userid" />
               </div>
               <button type="submit" class="btn btn-large btn-success">Submit</button>
             </form>
@@ -52,7 +54,7 @@
       
       <hr>
       <div class="footer">
-        <p id="footertext"></p>
+        <p id="footertext">songs for the deaf © 2013</p>
       </div>
 
     </div> <!-- /container -->
@@ -60,55 +62,42 @@
     <script src="http://code.jquery.com/jquery.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script>
-    function MicroGame () {
-        this.name = '';
-        this.captionid = '';
-        this.userId = '';
-        getNewJson = function() {
+    var microGame = new function() {
+        this.getNewJson = function() {
                 $.getJSON('./json/video.json', function(data) {        
                 var youtubeLink = data.video.url + "?rel=0&start=" + data.video.startpoint + "&end=" + data.video.endpoint  + "&autoplay=0";
                 $("#video").attr("src", youtubeLink);
                 $( "#captionCorrection" ).val( data.video.caption );
-
-                   this.captionid = data.video.captionid;
+                $( "#captionid" ).val(data.video.captionid);
             });
-			$.getJSON('./json/user.json', function(data) {
-				console.log( data.user.rating ); 
-				 $( "#currentScore" ).text(data.user.rating);
-			});
-
         };
-        getUserJson = function() {
-                $.getJSON('./json/user.json', function(data) {    
-                    this.userId = data.user.id;
+        this.getUserJson = function() {
+                $.getJSON('./json/user.json', function(user) {    
+                    $( "#user-id" ).val( user.user.id );
                 });
         };
     }
-    
-    var microGame = new MicroGame();
+
     
     $( document ).ready(function() {
             microGame.getNewJson();
+            microGame.getUserJson();
     });
     
     $( "#captionForm" ).submit(function( event ) {
       event.preventDefault();
-      var translation = $( "#captionCorrection" ).val();
       var data = {};
-      console.log(microGame);
-      data['captionId'] =  microGame.captionid;
-      data['translation'] = translation;
-      data['user'] = microGame.userId;
+      data['captionId'] =  $( "#captionid" ).val();
+      data['translation'] = $( "#captionCorrection" ).val();
+      data['user'] = $( "#user-id" ).val();
       console.log(data);
         $.ajax({
           type: "POST",
           url: "http://localhost/micro-game/",
-          data: data,
-          success: success,
-          dataType: dataType
+          data: data
         });
       microGame.getNewJson();
-
+      microGame.getUserJson();
     });
     </script>
 
