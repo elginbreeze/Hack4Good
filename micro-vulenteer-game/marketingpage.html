@@ -67,8 +67,12 @@
                 $("#video").attr("src", youtubeLink);
                 console.log(data.video.caption);
                 $( "#captionCorrection" ).val( data.video.caption );
-                
+               
             });
+			$.getJSON('./json/user.json', function(data) {
+				console.log( data.user.rating ); 
+				 $( "#currentScore" ).text(data.user.rating);
+			});
     });
     </script>
 
