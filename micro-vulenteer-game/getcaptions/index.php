@@ -55,7 +55,7 @@ $entryThree["startpoint"] = "105";
 $entryThree["endpoint"] = "110";
 $entryThree["accuracy"] = 20;
 $entryThree["language"] = "english";
-$entryThree["caption"] = "so I'm interested in a twenty dollar in my pocket I'm, I'm, I'm hunting, looking for a come up, this is fucking awesome";
+$entryThree["caption"] = "so I'm interested in a twenty dollar in my pocket I'm, I'm, I'm hunting, looking for a come up, this is f-ing awesome";
 $data[2]['video'] = $entryThree;
   
 $number = rand(0,2);
