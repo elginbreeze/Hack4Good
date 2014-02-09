@@ -60,19 +60,57 @@
     <script src="http://code.jquery.com/jquery.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script>
-    $( document ).ready(function() {
-            $.getJSON('./json/video.json', function(data) {        
-                console.log( data.video.url );     
+    function MicroGame () {
+        this.name = '';
+        this.captionid = '';
+        this.userId = '';
+        getNewJson = function() {
+                $.getJSON('./json/video.json', function(data) {        
                 var youtubeLink = data.video.url + "?rel=0&start=" + data.video.startpoint + "&end=" + data.video.endpoint  + "&autoplay=0";
                 $("#video").attr("src", youtubeLink);
-                console.log(data.video.caption);
                 $( "#captionCorrection" ).val( data.video.caption );
+<<<<<<< HEAD
                
             });
 			$.getJSON('./json/user.json', function(data) {
 				console.log( data.user.rating ); 
 				 $( "#currentScore" ).text(data.user.rating);
 			});
+=======
+                this.captionid = data.video.captionid;
+            });
+        };
+        getUserJson = function() {
+                $.getJSON('./json/user.json', function(data) {    
+                    this.userId = data.user.id;
+                });
+        };
+    }
+    
+    var microGame = new MicroGame();
+    
+    $( document ).ready(function() {
+            microGame.getNewJson();
+    });
+    
+    $( "#captionForm" ).submit(function( event ) {
+      event.preventDefault();
+      var translation = $( "#captionCorrection" ).val();
+      var data = {};
+      console.log(microGame);
+      data['captionId'] =  microGame.captionid;
+      data['translation'] = translation;
+      data['user'] = microGame.userId;
+      console.log(data);
+        $.ajax({
+          type: "POST",
+          url: "http://localhost/micro-game/",
+          data: data,
+          success: success,
+          dataType: dataType
+        });
+      microGame.getNewJson();
+>>>>>>> 4cc099c96a513389a42d5981f6e0d9e6f9d5c790
     });
     </script>
 
