@@ -65,12 +65,13 @@
 		
     var microGame = new function() {
 		 this.getUserJson = function() {
-                $.getJSON('./json/user.json', function(user) {  
+                $.getJSON('getuser/', function(user) {  
+					$( "#currentScore" ).text( user.user.rating );
                     $( "#user-id" ).val( user.user.id );
                 });
 		 };
         this.getNewJson = function() {
-                $.getJSON('./json/video.json', function(data) {        
+                $.getJSON('getcaptions/', function(data) {        
                 var youtubeLink = data.video.url + "?rel=0&start=" + data.video.startpoint + "&end=" + data.video.endpoint  + "&autoplay=0";
                 $("#video").attr("src", youtubeLink);
                 $( "#captionCorrection" ).val( data.video.caption );
