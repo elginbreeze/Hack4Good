@@ -52,7 +52,7 @@
       
       <hr>
       <div class="footer">
-        <p id="footertext">songs for the deaf © 2013</p>
+        <p id="footertext"></p>
       </div>
 
     </div> <!-- /container -->
@@ -69,16 +69,14 @@
                 var youtubeLink = data.video.url + "?rel=0&start=" + data.video.startpoint + "&end=" + data.video.endpoint  + "&autoplay=0";
                 $("#video").attr("src", youtubeLink);
                 $( "#captionCorrection" ).val( data.video.caption );
-<<<<<<< HEAD
-               
+
+                   this.captionid = data.video.captionid;
             });
 			$.getJSON('./json/user.json', function(data) {
 				console.log( data.user.rating ); 
 				 $( "#currentScore" ).text(data.user.rating);
 			});
-=======
-                this.captionid = data.video.captionid;
-            });
+
         };
         getUserJson = function() {
                 $.getJSON('./json/user.json', function(data) {    
@@ -110,7 +108,7 @@
           dataType: dataType
         });
       microGame.getNewJson();
->>>>>>> 4cc099c96a513389a42d5981f6e0d9e6f9d5c790
+
     });
     </script>
 
