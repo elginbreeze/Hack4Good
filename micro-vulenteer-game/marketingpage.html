@@ -72,7 +72,7 @@
 		 };
         this.getNewJson = function() {
                 $.getJSON('getcaptions/', function(data) {        
-                var youtubeLink = data.video.url + "?rel=0&start=" + data.video.startpoint + "&end=" + data.video.endpoint  + "&autoplay=0";
+                var youtubeLink = data.video.url + "?rel=0&start=" + data.video.startpoint + "&end=" + data.video.endpoint  + "&autoplay=1";
                 $("#video").attr("src", youtubeLink);
                 $( "#captionCorrection" ).val( data.video.caption );
                 $( "#captionid" ).val(data.video.captionid);
