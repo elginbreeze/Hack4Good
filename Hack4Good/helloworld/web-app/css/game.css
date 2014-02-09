@@ -1,0 +1,52 @@
+#findVideoPage{
+    margin-top:20px;
+    clear: both;
+}
+
+#searchBar{
+    width: 350px;
+}
+
+.center{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#full{
+    min-height: 500px;
+    width: 100%;
+}
+
+#gameStartPoint{
+    background-image: url(../images/bullseye.png);
+    background-repeat: no-repeat;
+    height: 520px;
+    width: 527px;
+    margin-top: 20px;
+}
+
+#dottedLine{
+    background-image: url(../images/dottedLine.png);
+    background-repeat: no-repeat;
+    width: 1532px;
+    height: 200px;
+}
+
+#videoBorder{
+    height: 300px;
+    width: 500px;
+    border: 2px double darkblue;
+    margin-top: 5%;
+}
+#videoTextInput{
+    width: 400px;
+    align-content: center;
+}
+#inputFormDiv{
+    margin-top: 50px;
+    width: 400px;
+}
+#inputTextLabel{
+    font-size: 30px;
+    font-weight: bold;
+}
