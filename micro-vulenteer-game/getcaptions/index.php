@@ -1,65 +1,56 @@
 <?php
 
-// get user from database
 
-// determine user score 
-// based on that pick next level
+$dbLink = mysql_connect('localhost', 'hack4good', 'geeklist');
+mysql_select_db('hack4good', $dbLink);
 
+$userSql = "SELECT * FROM user WHERE userId = 1";
 
-$con=mysqli_connect("localhost","hack4good","geeklist","hack4good");
+$userResult = mysql_query($userSql) or die(mysql_error());
 
-// Check connection
-if (mysqli_connect_errno())
-  {
-  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-  }
+$cols = array();
+$user = array();
+while ($row = mysql_fetch_assoc($userResult)) {
+    if (empty($cols)) {
+        $cols = array_keys($row);
+    }
+    $user = $row;
+}
+
+$accuracy = 90 - $user['rating'];
   
-$sql = "SELECT * FROM videocaption WHERE confidence < 90 ";
+$sql = "SELECT * 
+FROM caption, video
+WHERE accuracy <90
+AND caption.videoId = video.id
+AND caption.id NOT IN (
+SELECT captionId 
+FROM translations
+)
+AND accuracy < ".$accuracy ."
+LIMIT 0 , 30";
 
-$result = mysqli_query($con, $sql);
+$result = mysql_query($sql) or die(mysql_error());
 
-$data = array();
+$columns = array();
+$resultset = array();
+while ($row = mysql_fetch_assoc($result)) {
+    if (empty($columns)) {
+        $columns = array_keys($row);
+    }
+    $resultset[]['video'] = $row;
+}
+ 
+$number = rand(0,count($resultset)-1);
+$json = json_encode($resultset[$number]);
 
-//while($row = mysqli_fetch_array($result))
-//{
- //   $data[] = $row;
-//}
+// Prevent caching.
+header('Cache-Control: no-cache, must-revalidate');
+header('Expires: Mon, 01 Jan 1996 00:00:00 GMT');
 
-mysqli_close($con);
-
-
-$entry["captionid"] = 100;
-$entry["url"] = "http://www.youtube.com/embed/kpCJyQ2usJ4";
-$entry["subject"] = "math";
-$entry["startpoint"] = "20";
-$entry["endpoint"] = "25";
-$entry["accuracy"] = 85;
-$entry["language"] = "english";
-$entry["caption"] = "but we cannot understood it if we do not first run the language";
-$data[0]['video'] = $entry;
-
-$entryTwo["captionid"] = 100;
-$entryTwo["url"] = "http://www.youtube.com/embed/kpCJyQ2usJ4";
-$entryTwo["subject"] = "math";
-$entryTwo["startpoint"] = "43";
-$entryTwo["endpoint"] = "46";
-$entryTwo["accuracy"] = 85;
-$entryTwo["language"] = "english";
-$entryTwo["caption"] = "in deeper into blahblahbla is that we're going to start abh4cking things are";
-$data[1]['video'] = $entryTwo;
-
-$entryThree["captionid"] = 100;
-$entryThree["url"] = "http://www.youtube.com/embed/kpCJyQ2usJ4";
-$entryThree["subject"] = "math";
-$entryThree["startpoint"] = "105";
-$entryThree["endpoint"] = "110";
-$entryThree["accuracy"] = 20;
-$entryThree["language"] = "english";
-$entryThree["caption"] = "so I'm interested in a twenty dollar in my pocket I'm, I'm, I'm hunting, looking for a come up, this is f-ing awesome";
-$data[2]['video'] = $entryThree;
-  
-$number = rand(0,2);
-$json = json_encode($data[$number]);
+// The JSON standard MIME header.
+header('Content-type: application/json');
 echo $json;
 
+mysql_close($dbLink);
 ?>
